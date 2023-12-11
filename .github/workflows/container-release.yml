@@ -1,22 +1,37 @@
-name: Docker Image CI
+name: Quay Image CI
 
 on:
   push:
-    branches:
-      - "master"
+    branches: "main"
+    paths:
+      - 'docker/**'
+      - '.github/workflows/**'
 
   schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '0 */6 * * *'
+    - cron:  '0 0 * * *'
+  workflow_dispatch:
+
+env:
+  BOT_TOKEN: "${{ secrets.BOT_TOKEN }}"
+  CHAT_ID: "${{ secrets.CHAT_ID }}"
+  TOPIC_ID: "${{ secrets.TOPIC_ID}}"
 
 jobs:
-
   build-push:
     runs-on: ubuntu-latest
-
     steps:
 
-    # arm64 specific
+    - name: checkout repo
+      uses: actions/checkout@v4
+      with:
+        token: ${{ github.token }}
+
+    - name: "Cancelling duplicate workflow runs"
+      uses: styfle/cancel-workflow-action@0.12.0
+      with:
+        all_but_latest: true
+        access_token: ${{ github.token }}
+        
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
       with:
@@ -24,10 +39,6 @@ jobs:
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
-# arm64 specific
-
-    - name: Check Out Repo
-      uses: actions/checkout@v4
 
     - name: Login to registry
       uses: docker/login-action@v3
@@ -37,12 +48,22 @@ jobs:
         password: ${{ secrets.QUAY_PASSWORD }}
 
     - name: Build and push Docker image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v5
       with:
         context: .
         file: docker/Dockerfile
         platforms: linux/amd64,linux/arm64/v8
         labels: quay.expires-after=24w
         push: true
-        tags: quay.io/pixelpizza/rimgo:latest
+        tags: quay.io/${{ secrets.QUAY_USERNAME }}/rimgo:latest
         build-args: release=1
+    
+    # Notify to Specific Topic of a Supergroup
+    - name: Notify User on Telegram
+      run: |
+            curl -s -X POST https://api.telegram.org/bot$BOT_TOKEN/sendMessage -F chat_id=$CHAT_ID -F message_thread_id=$TOPIC_ID \
+                      -F text='Successfully Built and Pushed Docker Image' > /dev/null
+
+
+
+

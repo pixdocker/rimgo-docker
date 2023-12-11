@@ -1,10 +1,7 @@
 # rimgo-quay
 
 A [rimgo](https://codeberg.org/video-prize-ranch/rimgo) image, on Quay.
-
-[Quay page](https://quay.io/repository/pussthecatorg/rimgo) | [GitHub page](https://github.com/PussTheCat-org/rimgo-quay)
-
-This image mostly exist for the [PussTheCat.org](https://pussthecat.org/) [instance](https://rimgo.pussthecat.org/), but others are free to use it.
+This image mostly exist for the personal instance, mostly for the shake of Notification setup
 
 ## Usage:
 
@@ -17,3 +14,4 @@ This image mostly exist for the [PussTheCat.org](https://pussthecat.org/) [insta
 
 - The Invidious `container-release.yml` file: https://github.com/iv-org/invidious/blob/master/.github/workflows/container-release.yml
 - [@unixfox](https://github.com/unixfox), invidious-custom `docker-image.yml` file: https://github.com/unixfox/invidious-custom/blob/master/.github/workflows
+- [@pussthecat](https://github.com/PussTheCat-org/rimgo-quay)
