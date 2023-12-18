@@ -9,13 +9,13 @@ update_version_file() {
                       -F text="New Rimgo Commit with Hash $1 "> /dev/null
 }
 
-commit_update(){
-    git config --local user.name "Github Action"
-    git config --local user.email "action@github.com"
-    git add --all
-    git commit -m "Commit hash: $1"
-    git push
-}
+# commit_update(){
+#     git config --local user.name "Github Action"
+#     git config --local user.email "action@github.com"
+#     git add --all
+#     git commit -m "Commit hash: $1"
+#     git push
+# }
 
 # Read the current commit from the file
 current_commit=$(<"$VERSION_FILE")

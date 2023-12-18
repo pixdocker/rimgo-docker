@@ -6,6 +6,7 @@ on:
     paths:
       - 'docker/**'
       - '.github/workflows/**'
+      - 'commit.sh'
 
   schedule:
     - cron:  '0 0 * * *'
@@ -36,6 +37,13 @@ jobs:
       run: |
             chmod +x ./commit.sh
             ./commit.sh
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add commit.txt
+            commit_hash=$(<"$VERSION_FILE")
+            if git commit -m "Commit hash $commit_hash"; then
+              git push
+            fi
 
 
 

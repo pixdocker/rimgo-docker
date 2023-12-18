@@ -5,7 +5,7 @@ on:
     branches: "main"
     paths:
       - 'docker/**'
-      - '.github/workflows/**'
+      - '.github/workflows/container-release.yml'
       - 'commit.txt'
 
   # schedule:
