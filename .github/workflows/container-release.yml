@@ -6,9 +6,10 @@ on:
     paths:
       - 'docker/**'
       - '.github/workflows/**'
+      - 'commit.txt'
 
-  schedule:
-    - cron:  '0 0 * * *'
+  # schedule:
+  #   - cron:  '0 0 * * *'
   workflow_dispatch:
 
 env:
@@ -31,7 +32,7 @@ jobs:
       with:
         all_but_latest: true
         access_token: ${{ github.token }}
-        
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
       with:
@@ -57,7 +58,7 @@ jobs:
         push: true
         tags: quay.io/${{ secrets.QUAY_USERNAME }}/rimgo:latest
         build-args: release=1
-    
+
     # Notify to Specific Topic of a Supergroup
     - name: Notify User on Telegram
       run: |
