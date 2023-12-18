@@ -25,20 +25,20 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v4
       with:
-        token: ${{ github.token }}
+        token: ${{ secrets.ACTIONS_TOKEN }}
 
     - name: "Cancelling duplicate workflow runs"
       uses: styfle/cancel-workflow-action@0.12.0
       with:
         all_but_latest: true
-        access_token: ${{ github.token }}
+        access_token: ${{ secrets.ACTIONS_TOKEN }}
 
     - name: Check New Versions
       run: |
             chmod +x ./commit.sh
             ./commit.sh
             git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
+            git config --local user.name "GitHub Actions"
             git add commit.txt
             commit_hash=$(<"commit.txt")
             if git commit -m "Commit hash $commit_hash"; then
