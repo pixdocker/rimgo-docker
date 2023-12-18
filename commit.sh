@@ -30,7 +30,7 @@ latest_commit=$(echo "$json_response" | jq -r '.[0].sha')
 # Compare commit hash
 if [ "$latest_commit" != "$current_commit" ]; then
     update_version_file "$latest_commit"
-    commit_update "$latest_commit"
+    # commit_update "$latest_commit"
 fi
 
 echo "Script execution completed."
