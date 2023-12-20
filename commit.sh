@@ -6,7 +6,7 @@ update_version_file() {
     echo "Updating version file with the latest version: $1"
     echo "$1" > "$VERSION_FILE"
     curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -F chat_id="$CHAT_ID" -F message_thread_id="$TOPIC_ID" \
-                      -F text="New Rimgo Commit with Hash $1 "> /dev/null
+                      -F text="New Rimgo Found Commit: $1 "> /dev/null
 }
 
 # commit_update(){
@@ -31,6 +31,8 @@ latest_commit=$(echo "$json_response" | jq -r '.[0].sha')
 if [ "$latest_commit" != "$current_commit" ]; then
     update_version_file "$latest_commit"
     # commit_update "$latest_commit"
+else
+  echo "No New Commit found"
 fi
 
 echo "Script execution completed."

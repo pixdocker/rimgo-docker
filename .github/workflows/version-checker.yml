@@ -41,7 +41,7 @@ jobs:
             git config --local user.name "GitHub Actions"
             git add commit.txt
             commit_hash=$(<"commit.txt")
-            if git commit -m "Commit hash $commit_hash"; then
+            if git commit -m "Rimgo Commit: $commit_hash"; then
               git push
             fi
 

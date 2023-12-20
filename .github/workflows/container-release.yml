@@ -63,7 +63,7 @@ jobs:
     - name: Notify User on Telegram
       run: |
             curl -s -X POST https://api.telegram.org/bot$BOT_TOKEN/sendMessage -F chat_id=$CHAT_ID -F message_thread_id=$TOPIC_ID \
-                      -F text='Pushed new rimgo image to Quay' > /dev/null
+                      -F text='New Rimgo Image is available' > /dev/null
 
 
 
