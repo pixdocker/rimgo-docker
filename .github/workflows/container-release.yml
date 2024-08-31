@@ -59,11 +59,11 @@ jobs:
         tags: quay.io/${{ secrets.QUAY_USERNAME }}/rimgo:latest
         build-args: release=1
 
-    # Notify to Specific Topic of a Supergroup
-    - name: Notify User on Telegram
-      run: |
-            curl -s -X POST https://api.telegram.org/bot$BOT_TOKEN/sendMessage -F chat_id=$CHAT_ID -F message_thread_id=$TOPIC_ID \
-                      -F text='New Rimgo Image is available' > /dev/null
+    # # Notify to Specific Topic of a Supergroup
+    # - name: Notify User on Telegram
+    #   run: |
+    #         curl -s -X POST https://api.telegram.org/bot$BOT_TOKEN/sendMessage -F chat_id=$CHAT_ID -F message_thread_id=$TOPIC_ID \
+    #                   -F text='New Rimgo Image is available' > /dev/null
 
 
 
